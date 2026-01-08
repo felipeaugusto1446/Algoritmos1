@@ -1,3 +1,16 @@
-Perdi o PDF enviado pelo professor, então aqui está um resumo do objetivo desse código.
+# Algoritmos 1 — Trabalhos (por branch)
 
-Esse código tem como objetivo calcular e imprimir a mediana de uma sequência de números inteiros à medida que eles são lidos, ou seja, ele calcula a mediana dinâmica em tempo real: o programa lê números até que seja digitado -1 e, após cada novo valor, atualiza a mediana e a exibe na tela. Para isso, ele usa duas estruturas de heap: um max-heap, que armazena a metade menor dos números (mantendo o maior deles no topo), e um min-heap, que armazena a metade maior (mantendo o menor no topo). A cada inserção, o código redistribui os valores entre as duas heaps para garantir que seus tamanhos fiquem balanceados (o max-heap nunca tem menos elementos que o min-heap), permitindo que a mediana seja calculada de forma eficiente: se o total de elementos for ímpar, a mediana é o topo do max-heap; se for par, a mediana é a média entre o topo do max-heap e o topo do min-heap.
+Este repositório reúne trabalhos/atividades da disciplina **Algoritmos 1**, organizados em **branches** separadas (um trabalho por branch).
+
+> ✅ Dica: a branch `main` funciona como “hub” (central) com instruções e/ou o trabalho principal.
+
+---
+
+## Como acessar cada trabalho
+
+Você pode trocar de branch pelo GitHub (menu de branch) ou pelo terminal:
+
+```bash
+git clone https://github.com/felipeaugusto1446/Algoritmos1.git
+cd Algoritmos1
+git checkout <nome-da-branch>
