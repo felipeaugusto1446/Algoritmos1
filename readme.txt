@@ -1,8 +1,7 @@
-# Algoritmos 1 — Trabalhos (por branch)
+# Algoritmos e Estrutura de Dados 1 — Trabalhos
 
-Este repositório reúne trabalhos/atividades da disciplina **Algoritmos 1**, organizados em **branches** separadas (um trabalho por branch).
-
-> ✅ Dica: a branch `main` funciona como “hub” (central) com instruções e/ou o trabalho principal.
+Este repositório reúne trabalhos/atividades da disciplina Algoritmos e Estruturas de dados 1, ministrada pelo professor Hokama na Universidade Federal de Itajubá em 2025/1.
+Os trabalhos seguem distribuidos em suas branches, ao todo foram realizados 4 trabalhos abordando os temas principais da disciplina.
 
 ---
 
