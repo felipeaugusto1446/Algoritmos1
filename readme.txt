@@ -1,3 +1,46 @@
-Perdi o PDF enviado pelo professor, então aqui está um resumo do objetivo desse código.
+# Trabalho 04 — Mediana Dinâmica
 
-Esse código tem como objetivo calcular e imprimir a mediana de uma sequência de números inteiros à medida que eles são lidos, ou seja, ele calcula a mediana dinâmica em tempo real: o programa lê números até que seja digitado -1 e, após cada novo valor, atualiza a mediana e a exibe na tela. Para isso, ele usa duas estruturas de heap: um max-heap, que armazena a metade menor dos números (mantendo o maior deles no topo), e um min-heap, que armazena a metade maior (mantendo o menor no topo). A cada inserção, o código redistribui os valores entre as duas heaps para garantir que seus tamanhos fiquem balanceados (o max-heap nunca tem menos elementos que o min-heap), permitindo que a mediana seja calculada de forma eficiente: se o total de elementos for ímpar, a mediana é o topo do max-heap; se for par, a mediana é a média entre o topo do max-heap e o topo do min-heap.
+Esta **branch** contém a **resolução do Trabalho 04** da disciplina **Algoritmos 1**, cujo objetivo é calcular a **mediana de uma sequência de números em tempo de execução**, utilizando estruturas de dados do tipo heap, conforme especificado no enunciado do trabalho.
+
+---
+
+## 📄 Arquivos do Trabalho
+
+- **main.c**  
+  Arquivo fonte em C contendo a implementação da solução do Trabalho 04.
+
+- **readme.txt**  
+  Arquivo de apoio contendo informações adicionais sobre o funcionamento do programa ou instruções relacionadas ao trabalho.
+
+---
+
+## ⚙️ Compilação
+
+Para compilar o programa, utilize um compilador compatível com o padrão C (como o `gcc`):
+
+```bash
+gcc -Wall -Wextra -std=c11 main.c -lm -o main
+```
+
+---
+
+## ▶️ Execução
+
+Após a compilação, execute o programa com o comando:
+
+```bash
+./main
+```
+
+A entrada de dados consiste em uma sequência de números inteiros, finalizada pelo valor **-1**.  
+Após cada número lido, o programa imprime a **mediana atual** da sequência.
+
+---
+
+## 📌 Observações
+
+- O código foi desenvolvido exclusivamente para fins acadêmicos.
+- A implementação segue as especificações e restrições apresentadas no enunciado.
+- Recomenda-se a leitura do arquivo **readme.txt** para informações complementares sobre o trabalho.
+
+---
