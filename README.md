@@ -1,6 +1,6 @@
 # Trabalho 01 — Conversão de Expressões
 
-Este repositório contém a solução do **Trabalho 01** da disciplina **Algoritmos 1**.  
+Esta branch contém a solução do **Trabalho 01** da disciplina **Algoritmos 1**.  
 O objetivo do trabalho é implementar, em linguagem C, um programa capaz de **converter expressões matemáticas entre diferentes notações**, conforme especificado no enunciado fornecido pelo professor.
 
 ---
