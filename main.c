@@ -1,79 +1,173 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <math.h>
 
-typedef struct arvore {
-    char valor;              
-    struct arvore *esq;
-    struct arvore *dir;
-} arvore;
+#define TAMANHO 200000
 
-arvore* criaNo(char valor) {
-    arvore *no = malloc(sizeof(arvore));
-    no->valor = valor;
-    no->esq = NULL;
-    no->dir = NULL;
-    return no;
+typedef struct maxheap {
+  int * V;
+  int n;
+} maxheap;
+
+typedef struct minheap {
+  int * V;
+  int n;
+} minheap;
+
+int pai(int i) { return ceil(i / 2.0) - 1; }
+int esq(int i) { return 2 * i + 1; }
+int dir(int i) { return 2 * i + 2; }
+
+maxheap* cria_maxheap() {
+  maxheap * H = (maxheap*) malloc(sizeof(maxheap));
+  H->V = (int*) malloc(sizeof(int) * TAMANHO);
+  H->n = 0;
+  return H;
 }
 
-void preOrdem(arvore *raiz) {
-    if (raiz == NULL) return;
-    printf("%c", raiz->valor);
-    preOrdem(raiz->esq);
-    preOrdem(raiz->dir);
+void sobe_maxheap(maxheap *H, int i) {
+  if (i == 0) return;
+  int p = pai(i);
+  if (H->V[p] < H->V[i]) {
+    int aux = H->V[p];
+    H->V[p] = H->V[i];
+    H->V[i] = aux;
+    sobe_maxheap(H, p);
+  }
 }
 
-void libera(arvore *raiz) {
-    if (raiz == NULL) return;
-    libera(raiz->esq);
-    libera(raiz->dir);
-    free(raiz);
+void desce_maxheap(maxheap *H, int i) {
+  int e = esq(i);
+  int d = dir(i);
+  if (e >= H->n) return;
+  int imaior;
+  if (d < H->n && H->V[d] > H->V[e]) imaior = d;
+  else imaior = e;
+  if (H->V[i] < H->V[imaior]) {
+    int aux = H->V[i];
+    H->V[i] = H->V[imaior];
+    H->V[imaior] = aux;
+    desce_maxheap(H, imaior);
+  }
 }
 
-void converte(char *str) {
-    int tam = strlen(str);
-    printf("%d\n", tam);
+void insere_max(maxheap * H, int v) {
+  if (H->n >= TAMANHO) return; 
+  H->V[H->n] = v;
+  H->n = H->n + 1;
+  sobe_maxheap(H, H->n - 1);
+}
 
-    char grupos[256];
-    int n = 0;
-    grupos[n++] = str[0];
-    for (int i = 1; i < tam; i++) {
-        if (str[i] != str[i - 1]) {
-            grupos[n++] = str[i];
-        }
+int remove_max(maxheap * H) {
+  if (H->n == 0) return -1;
+  int maior = H->V[0];
+  H->n = H->n - 1;
+  H->V[0] = H->V[H->n];
+  desce_maxheap(H, 0);
+  return maior;
+}
+
+int topo_maxheap(maxheap * H) {
+  if (H->n > 0) return H->V[0];
+  return -1;
+}
+
+int tamanho_maxheap(maxheap * H) {
+  return H->n;
+}
+
+void libera_maxheap(maxheap* H) {
+  free(H->V);
+  free(H);
+}
+
+minheap* cria_minheap() {
+  minheap * H = (minheap*) malloc(sizeof(minheap));
+  H->V = (int*) malloc(sizeof(int) * TAMANHO);
+  H->n = 0;
+  return H;
+}
+
+void sobe_minheap(minheap *H, int i) {
+  if (i == 0) return;
+  int p = pai(i);
+  if (H->V[p] > H->V[i]) {
+    int aux = H->V[p];
+    H->V[p] = H->V[i];
+    H->V[i] = aux;
+    sobe_minheap(H, p);
+  }
+}
+
+void desce_minheap(minheap *H, int i) {
+  int e = esq(i);
+  int d = dir(i);
+  if (e >= H->n) return;
+  int imenor;
+  if (d < H->n && H->V[d] < H->V[e]) imenor = d;
+  else imenor = e;
+  if (H->V[i] > H->V[imenor]) {
+    int aux = H->V[i];
+    H->V[i] = H->V[imenor];
+    H->V[imenor] = aux;
+    desce_minheap(H, imenor);
+  }
+}
+
+void insere_min(minheap * H, int v) {
+  if (H->n >= TAMANHO) return; 
+  H->V[H->n] = v;
+  H->n = H->n + 1;
+  sobe_minheap(H, H->n - 1);
+}
+
+int remove_min(minheap * H) {
+  if (H->n == 0) return -1;
+  int menor = H->V[0];
+  H->n = H->n - 1;
+  H->V[0] = H->V[H->n];
+  desce_minheap(H, 0);
+  return menor;
+}
+
+int topo_minheap(minheap * H) {
+  if (H->n > 0) return H->V[0];
+  return -1;
+}
+
+int tamanho_minheap(minheap * H) {
+  return H->n;
+}
+
+void libera_minheap(minheap* H) {
+  free(H->V);
+  free(H);
+}
+
+int main(int argc, char* argv[]) {
+  maxheap * maxH = cria_maxheap();
+  minheap * minH = cria_minheap();
+  int num;
+  
+  while (scanf("%d", &num) && num != -1) {
+    insere_max(maxH, num);
+    insere_min(minH, remove_max(maxH));
+    
+    if (tamanho_minheap(minH) > tamanho_maxheap(maxH)) {
+      insere_max(maxH, remove_min(minH));
     }
-
-    arvore *folhas[256];
-    for (int i = 0; i < n; i++) {
-        folhas[i] = criaNo(grupos[i]);
+    
+    double mediana;
+    if (tamanho_maxheap(maxH) > tamanho_minheap(minH)) {
+      mediana = (double)topo_maxheap(maxH);
+    } else {
+      mediana = (topo_maxheap(maxH) + topo_minheap(minH)) / 2.0;
     }
-
-    int m = n;
-    while (m > 1) {
-        int k = 0;
-        for (int i = 0; i < m; i += 2) {
-            if (i + 1 < m) {
-                arvore *pai = criaNo('*');
-                pai->esq = folhas[i];
-                pai->dir = folhas[i + 1];
-                folhas[k++] = pai;
-            } else {
-                folhas[k++] = folhas[i];
-            }
-        }
-        m = k;
-    }
-
-    preOrdem(folhas[0]);
-    printf("\n");
-
-    libera(folhas[0]);
-}
-
-int main(void) {
-    char *str = NULL;
-    scanf("%ms", &str);
-    converte(str);
-    free(str);
-    return 0;
+    printf("Mediana: %.1f\n", mediana);
+  }
+  
+  libera_maxheap(maxH);
+  libera_minheap(minH);
+  
+  return 0;
 }
